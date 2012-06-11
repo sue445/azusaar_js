@@ -3,5 +3,6 @@
 .*
 # except for .gitignore
 !.gitignore
-www-test/
+!.proverc
+
 *.orig
