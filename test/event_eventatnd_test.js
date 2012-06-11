@@ -7,6 +7,10 @@ $(document).ready(function(){
             // use new instance at own test
             var params = $.extend(true, {}, azusaar.event.eventatnd.initParams);
             sut = new azusaar.event.SearchEventBase(params);
+
+            azusaar.main = {
+                showPageLoadingMsg : function(){}
+            };
         }
     });
 

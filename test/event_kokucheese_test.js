@@ -9,6 +9,10 @@ $(document).ready(function(){
             params.apiUrl = "http://azusaar.appspot.com" + params.apiUrl;
             params.format = "jsonp";
             sut = new azusaar.event.SearchEventBase(params);
+
+            azusaar.main = {
+                showPageLoadingMsg : function(){}
+            };
         }
     });
 

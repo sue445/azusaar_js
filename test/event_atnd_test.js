@@ -6,6 +6,10 @@ $(document).ready(function(){
         setup: function(){
             // use new instance at own test
             sut = new azusaar.event.SearchEventBase(azusaar.event.atnd.initParams);
+
+            azusaar.main = {
+                showPageLoadingMsg : function(){}
+            };
         }
     });
 
