@@ -2,7 +2,7 @@
  * QUnit-TAP - A TAP Output Producer Plugin for QUnit
  *
  * http://github.com/twada/qunit-tap
- * version: 1.0.11pre
+ * version: 1.0.13pre
  *
  * Copyright (c) 2010, 2011, 2012 Takuto Wada
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -13,7 +13,7 @@
  * @param options configuration options to customize default behavior.
  */
 var qunitTap = function qunitTap(qunitObject, printLikeFunction, options) {
-    var qunitTapVersion = '1.0.11pre',
+    var qunitTapVersion = '1.0.13pre',
         initialCount,
         multipleLoggingCallbacksSupported,
         qu = qunitObject;
@@ -88,23 +88,29 @@ var qunitTap = function qunitTap(qunitObject, printLikeFunction, options) {
         return str.replace(/^\s+/, '');
     };
 
+    var addSeparatorTo = function (desc) {
+        if (desc) {
+            desc += ', ';
+        }
+        return desc;
+    };
+
     var appendDetailsTo = function (desc, details) {
         if (!qu.tap.showDetailsOnFailure || details.result) {
             return desc;
         }
-        if (/^Died/.test(desc) && typeof details.source === 'string') {
-            desc += '\n';
-            desc += ltrim(details.source);
-        }
         if (typeof details.expected !== 'undefined') {
-            if (desc) {
-                desc += ', ';
-            }
+            desc = addSeparatorTo(desc);
             desc += 'expected: \'';
             desc += details.expected;
             desc += '\' got: \'';
             desc += details.actual;
             desc += '\'';
+        }
+        if (typeof details.source === 'string') {
+            desc = addSeparatorTo(desc);
+            desc += 'source: ';
+            desc += ltrim(details.source);
         }
         return desc;
     };
