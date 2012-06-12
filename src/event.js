@@ -10,7 +10,7 @@ azusaar.event.SearchEventBase = function(params){
     this.cache = params.cache;
     this.format = params.format || "json";
     this.dataType = params.dataType || this.format;
-    this.allReturn = params.allReturn || false;
+    this.canUseAllReturn = params.canUseAllReturn || false;
     this.addCallback = params.addCallback || function(event){};
     this.initParams = params;
 };
@@ -83,7 +83,7 @@ azusaar.event.SearchEventBase.prototype = {
             format: this.format,
             start: start,
             count: count,
-            allReturn : this.allReturn,
+            allReturn : this.canUseAllReturn && dayUnique,
             dayUnique : dayUnique
         };
 
@@ -139,7 +139,7 @@ azusaar.event.SearchEventBase.prototype = {
                 eventCallback(response.event);
             }
 
-            if(that.allReturn || dayUnique || response.results_returned != count){
+            if(data.allReturn || dayUnique || response.results_returned != count){
                 // search end
                 df.resolve();
             } else{
@@ -175,7 +175,7 @@ azusaar.event.atnd = new azusaar.event.SearchEventBase({
     icon:"atnd",
     cache: false,
     format:"jsonp",
-    allReturn: false
+    canUseAllReturn: false
 });
 
 azusaar.event.zusaar = new azusaar.event.SearchEventBase({
@@ -183,7 +183,7 @@ azusaar.event.zusaar = new azusaar.event.SearchEventBase({
     icon:"zusaar",
     cache: true,
     format:"json",
-    allReturn: true
+    canUseAllReturn: true
 });
 
 azusaar.event.kokucheese = new azusaar.event.SearchEventBase({
@@ -191,7 +191,7 @@ azusaar.event.kokucheese = new azusaar.event.SearchEventBase({
     icon:"kokucheese",
     cache: true,
     format:"json",
-    allReturn: true
+    canUseAllReturn: true
 });
 
 azusaar.event.partake = new azusaar.event.SearchEventBase({
@@ -199,7 +199,7 @@ azusaar.event.partake = new azusaar.event.SearchEventBase({
     icon:"partake",
     cache: true,
     format:"json",
-    allReturn: true
+    canUseAllReturn: true
 });
 
 azusaar.event.connpass = new azusaar.event.SearchEventBase({
@@ -208,7 +208,7 @@ azusaar.event.connpass = new azusaar.event.SearchEventBase({
     cache: false,
     format: "json",
     dataType: "jsonp",
-    allReturn: false
+    canUseAllReturn: false
 });
 
 azusaar.event.eventatnd = new azusaar.event.SearchEventBase({
@@ -216,5 +216,5 @@ azusaar.event.eventatnd = new azusaar.event.SearchEventBase({
     icon:"eventatnd",
     cache: false,
     format: "jsonp",
-    allReturn: false
+    canUseAllReturn: false
 });
