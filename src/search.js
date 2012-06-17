@@ -36,7 +36,7 @@ azusaar.search = (function(){
         isSearchPartake = params.isSearchPartake;
         isSearchConnpass = params.isSearchConnpass;
 
-        $("#query").val(query);
+        $("#query").val(query.replace(/\+/g," "));
         $("#year").text(year);
         $("#month").text(month);
         $("#day").text(day);
