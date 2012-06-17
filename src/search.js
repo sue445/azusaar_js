@@ -25,7 +25,7 @@ azusaar.search = (function(){
     function init(params){
         params = params || {};
 
-        query = params.query;
+        query = params.query || "";
         year = params.year;
         month = params.month;
         day = params.day;
