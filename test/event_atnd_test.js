@@ -27,7 +27,7 @@ $(document).ready(function(){
         var d = sut.searchMonthly({year:2012, month:4, query: "google"});
         d.then(function(){
             start();
-            assert.strictEqual(actualEventCount, 113);
+            assert.strictEqual(actualEventCount, 114);
             assert.ok(actualStartedAt.sameMonth({year:2012, month: 4}), "actual="+actualStartedAt);
         });
     });
