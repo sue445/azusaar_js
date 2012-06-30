@@ -99,9 +99,11 @@ azusaar.event.SearchEventBase.prototype = {
             if(events && events.length > 0){
                 for(var i = 0; i < events.length; i++){
                     var startedAt = util.parseDate(events[i].started_at);
-                    if( (day && startedAt.sameDay(params)) || (!day && startedAt.sameMonth(params)) ){
-                        events[i].title = util.trim(events[i].title);
-                        that.addCallback(events[i]);
+                    if(startedAt){
+                        if( (day && startedAt.sameDay(params)) || (!day && startedAt.sameMonth(params)) ){
+                            events[i].title = util.trim(events[i].title);
+                            that.addCallback(events[i]);
+                        }
                     }
                 }
                 if(azusaar.main && azusaar.main.dispTotal){
