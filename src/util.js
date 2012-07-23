@@ -19,7 +19,7 @@ azusaar.util = (function(){
         if(str){
             return str.replace(/[\+\s　]+/g, " ").split(" ");
         }
-        return "";
+        return [];
     }
 
     function toYYYYMM(year, month){

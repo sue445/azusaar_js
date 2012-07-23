@@ -79,7 +79,6 @@ azusaar.event.SearchEventBase.prototype = {
         var util = azusaar.util;
 
         var data = {
-            keyword: util.splitKeyword(query),
             format: this.format,
             start: start,
             count: count,
@@ -91,6 +90,11 @@ azusaar.event.SearchEventBase.prototype = {
             data.ymd = util.toYYYYMMDD(year, month, day);
         } else{
             data.ym = util.toYYYYMM(year, month);
+        }
+
+        var keyword = util.splitKeyword(query);
+        if(keyword && keyword.length > 0 && keyword[0].length > 0){
+            data.keyword = keyword;
         }
 
         var that = this;
