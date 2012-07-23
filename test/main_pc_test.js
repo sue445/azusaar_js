@@ -231,13 +231,13 @@ $(document).ready(function(){
         var d = azusaar.search.searchAllMonthly();
         d.then(function(){
             start();
-            assert.strictEqual($("#countAtnd").text(), "(52)");
+            assert.strictEqual($("#countAtnd").text(), "(51)");
             assert.strictEqual($("#countEventAtnd").text(), "(1)");
             assert.strictEqual($("#countZusaar").text(), "(5)");
             assert.strictEqual($("#countKokucheese").text(), "(6)");
             assert.strictEqual($("#countPartake").text(), "(4)");
             assert.strictEqual($("#countConnpass").text(), "(3)");
-            assert.strictEqual($("#total").text(), "71");
+            assert.strictEqual($("#total").text(), "70");
         }, function(){
             start();
             assert.ok(false);

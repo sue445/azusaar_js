@@ -65,7 +65,7 @@ $(document).ready(function(){
         var d = sut.searchEachDays({year:2012, month:3, days: {1:true, 2:true, 3:true} });
         d.then(function(){
             start();
-            assert.strictEqual(actualEventCount, 91);
+            assert.strictEqual(actualEventCount, 90);
             assert.ok(actualStartedAt.sameMonth({year:2012, month: 3}), "actual="+actualStartedAt);
         });
     });
