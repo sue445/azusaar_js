@@ -152,7 +152,7 @@ $(document).ready(function(){
             event_url : "http://atnd.org/events/00001"
         };
 
-        azusaar.main.addEvent(event, "atnd");
+        azusaar.main.addEvent({event:event}, "atnd");
 
         assert.strictEqual($("#day10").attr("cal_link_to"), "daily.html?q=&at=0&ea=0&zu=0&ko=0&pa=0&co=0&y=2012&m=6&d=10");
         assert.strictEqual($("#day10 ul.event li:eq(0) span.title").text(), "6/10");
@@ -234,7 +234,7 @@ $(document).ready(function(){
             event_url : "http://atnd.org/events/00001"
         };
 
-        azusaar.main.addEvent(event, "atnd");
+        azusaar.main.addEvent({event:event}, "atnd");
 
         assert.strictEqual($("#pageDaily ul li a").attr("href"), "http://atnd.org/events/00001");
         assert.strictEqual($("#pageDaily ul li a").text(), "テストイベント");

@@ -128,7 +128,7 @@ $(document).ready(function(){
             event_url : "http://atnd.org/events/00001"
         };
 
-        azusaar.main.addEvent(event, "atnd");
+        azusaar.main.addEvent({event:event}, "atnd");
 
         assert.strictEqual($("#day10 ul.event li.atnd").size(), 1);
         assert.strictEqual($("#day10 ul.event li.atnd a.event").attr("href"), "http://atnd.org/events/00001");
@@ -149,7 +149,7 @@ $(document).ready(function(){
             place: "テストビル"
         };
 
-        azusaar.main.addEvent(event, "atnd");
+        azusaar.main.addEvent({event:event}, "atnd");
 
         assert.strictEqual($("#day10 ul.event li.atnd a.map").attr("href"), "javascript:void(0);return false;");
         assert.strictEqual($("#day10 ul.event li.atnd a.map").attr("title"), "「テストビル」周辺の地図とホテル");
@@ -168,7 +168,7 @@ $(document).ready(function(){
             place: "テストビル"
         };
 
-        azusaar.main.addEvent(event, "atnd");
+        azusaar.main.addEvent({event:event}, "atnd");
 
         assert.strictEqual($("#day10 ul.event li.atnd a.map").attr("href"), "javascript:void(0);return false;");
         assert.strictEqual($("#day10 ul.event li.atnd a.map").attr("title"), "「テストビル」周辺の地図とホテル");
@@ -186,7 +186,7 @@ $(document).ready(function(){
         };
 
         for(var i = 0; i < count; i++){
-            azusaar.main.addEvent(event, icon);
+            azusaar.main.addEvent({event:event}, icon);
         }
     }
 

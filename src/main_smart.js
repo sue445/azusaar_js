@@ -4,7 +4,8 @@ if(!this.azusaar) {
 
 azusaar.main = (function(){
     // public methods
-    function addEvent(event, icon){
+    function addEvent(params, icon){
+        var event = params.event;
         var date = azusaar.util.parseDate(event.started_at);
         var day = date.getDate();
 
@@ -43,6 +44,7 @@ azusaar.main = (function(){
                     $("<a/>")
                         .addClass("listEvent")
                         .addClass(icon)
+                        .addClass(params.kind)
                         .attr("href", event.event_url)
                         .text(event.title)
                 )
@@ -207,21 +209,27 @@ azusaar.main = (function(){
 
 }());
 
-azusaar.event.atnd.addCallback = function(event){
-    azusaar.main.addEvent(event, "atnd");
+azusaar.event.atnd.addCallback = function(params){
+    azusaar.main.addEvent(params, "atnd");
 };
-azusaar.event.eventatnd.addCallback = function(event){
-    azusaar.main.addEvent(event, "eventatnd");
+azusaar.event.eventatnd.addCallback = function(params){
+    azusaar.main.addEvent(params, "eventatnd");
 };
-azusaar.event.zusaar.addCallback = function(event){
-    azusaar.main.addEvent(event, "zusaar");
+azusaar.event.zusaar.addCallback = function(params){
+    azusaar.main.addEvent(params, "zusaar");
 };
-azusaar.event.kokucheese.addCallback = function(event){
-    azusaar.main.addEvent(event, "kokucheese");
+azusaar.event.zusaar_origin.addCallback = function(params){
+    azusaar.main.addEvent(params, "zusaar");
 };
-azusaar.event.partake.addCallback = function(event){
-    azusaar.main.addEvent(event, "partake");
+azusaar.event.kokucheese.addCallback = function(params){
+    azusaar.main.addEvent(params, "kokucheese");
 };
-azusaar.event.connpass.addCallback = function(event){
-    azusaar.main.addEvent(event, "connpass");
+azusaar.event.partake.addCallback = function(params){
+    azusaar.main.addEvent(params, "partake");
+};
+azusaar.event.partake_user.addCallback = function(params){
+    azusaar.main.addEvent(params, "partake");
+};
+azusaar.event.connpass.addCallback = function(params){
+    azusaar.main.addEvent(params, "connpass");
 };

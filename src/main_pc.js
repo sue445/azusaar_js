@@ -4,9 +4,10 @@ if(!this.azusaar) {
 
 azusaar.main = (function(){
     // public methods
-    function addEvent(event, icon){
+    function addEvent(params, icon){
+        var event = params.event;
         var day = azusaar.util.parseDate(event.started_at).getDate();
-        var li = $("<li/>").addClass(icon);
+        var li = $("<li/>").addClass(icon).addClass(params.kind);
 
         var mapUrl = null;
         if(event.lat && event.lon){
@@ -42,18 +43,32 @@ azusaar.main = (function(){
             .text(event.title);
         li.append(link);
 
-        $("#allDay" + day + " ul.event").append(li);
+        if(params.kind == "owner" || params.kind == "user"){
+            if(existsEvent(day, event.event_url)){
+                // 既に登録されていたら上の方に表示するために古いのを削除する
+                $("ul.event li a[href='"+ event.event_url +"']").parent("li").remove();
+            }
 
-        var count = $("#allDay" + day + " ul.event li").length;
-        if(count <= 3){
-            $("#day" + day + " ul.event").append(li.clone(true));
+            // 自分に関係するイベントは先頭に挿入
+            $("#allDay" + day + " ul.event").prepend(li);
+            $("#day" + day + " ul.event").prepend(li.clone(true));
+        } else{
+            // その他のイベントは末尾に挿入(既に同一URLがある場合には挿入しない)
+            if(!existsEvent(day, event.event_url)){
+                $("#allDay" + day + " ul.event").append(li);
+
+                var count = $("#allDay" + day + " ul.event li.other").length;
+                if(count <= 3){
+                    $("#day" + day + " ul.event").append(li.clone(true));
+                }
+            }
         }
 
-        if(count == 4){
+        var count = $("#allDay" + day + " ul.event li.other").length;
+        if(count == 3 && $("#dayCount"+day).length == 0 ){
             (function(d){
-                var button = $("<input/>")
-                    .attr("type", "button")
-                    .attr("value", "全て見る")
+                var button = $("<button/>")
+                    .addClass("btn")
                     .click(function(){
                         // 高さ調整
                         var windowHeight = azusaar.util.getBrowserHeight() * 0.9;
@@ -65,7 +80,7 @@ azusaar.main = (function(){
                         }
                         $("#allDay" + d).dialog("close").dialog(options).dialog("open");
                         return false;
-                    });
+                    }).text("All");
                 $("#day" + d)
                     .append(button)
                     .append(
@@ -168,29 +183,42 @@ azusaar.main = (function(){
 
     // private methods
     function dispSiteCount(target, name){
-        var count = !siteCounts[name] ? 0 : siteCounts[name];
+    	var count = 0;
+        if(siteCounts && siteCounts[name]){
+            count = siteCounts[name];
+        }
         $(target).text( "("+count+")" );
+    }
+
+    function existsEvent(day, event_url){
+        return $("#allDay" + day + " ul.event li a[href='"+ event_url +"']").length > 0
     }
 
     var totalCount;
     var siteCounts;
 }());
 
-azusaar.event.atnd.addCallback = function(event){
-    azusaar.main.addEvent(event, "atnd");
+azusaar.event.atnd.addCallback = function(params){
+    azusaar.main.addEvent(params, "atnd");
 };
-azusaar.event.eventatnd.addCallback = function(event){
-    azusaar.main.addEvent(event, "eventatnd");
+azusaar.event.eventatnd.addCallback = function(params){
+    azusaar.main.addEvent(params, "eventatnd");
 };
-azusaar.event.zusaar.addCallback = function(event){
-    azusaar.main.addEvent(event, "zusaar");
+azusaar.event.zusaar.addCallback = function(params){
+    azusaar.main.addEvent(params, "zusaar");
 };
-azusaar.event.kokucheese.addCallback = function(event){
-    azusaar.main.addEvent(event, "kokucheese");
+azusaar.event.zusaar_origin.addCallback = function(params){
+    azusaar.main.addEvent(params, "zusaar");
 };
-azusaar.event.partake.addCallback = function(event){
-    azusaar.main.addEvent(event, "partake");
+azusaar.event.kokucheese.addCallback = function(params){
+    azusaar.main.addEvent(params, "kokucheese");
 };
-azusaar.event.connpass.addCallback = function(event){
-    azusaar.main.addEvent(event, "connpass");
+azusaar.event.partake.addCallback = function(params){
+    azusaar.main.addEvent(params, "partake");
+};
+azusaar.event.partake_user.addCallback = function(params){
+    azusaar.main.addEvent(params, "partake");
+};
+azusaar.event.connpass.addCallback = function(params){
+    azusaar.main.addEvent(params, "connpass");
 };

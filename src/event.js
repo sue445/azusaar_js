@@ -11,7 +11,7 @@ azusaar.event.SearchEventBase = function(params){
     this.format = params.format || "json";
     this.dataType = params.dataType || this.format;
     this.canUseAllReturn = params.canUseAllReturn || false;
-    this.addCallback = params.addCallback || function(event){};
+    this.addCallback = params.addCallback || function(){};
     this.initParams = params;
 };
 
@@ -77,7 +77,6 @@ azusaar.event.SearchEventBase.prototype = {
         var dayUnique = params.dayUnique || false;
         var count = params.count || 100;
         var util = azusaar.util;
-
         var data = {
             format: this.format,
             start: start,
@@ -97,6 +96,34 @@ azusaar.event.SearchEventBase.prototype = {
             data.keyword = keyword;
         }
 
+        if(params.twitter_id){
+            data.twitter_id = params.twitter_id;
+        }
+        if(params.owner_twitter_id){
+            data.owner_twitter_id = params.owner_twitter_id;
+        }
+        if(params.user_id){
+            data.user_id = params.user_id;
+        }
+        if(params.owner_id){
+            data.owner_id = params.owner_id;
+        }
+        if(params.nickname){
+            data.nickname = params.nickname;
+        }
+        if(params.owner_nickname){
+            data.owner_nickname = params.owner_nickname;
+        }
+
+        var kind;
+        if(params.owner_id || params.owner_twitter_id || params.owner_nickname){
+            kind = "owner";
+        } else if(params.user_id || params.twitter_id || params.nickname){
+            kind = "user";
+        } else{
+            kind = "other";
+        }
+
         var that = this;
 
         var eventCallback = function(events){
@@ -106,7 +133,7 @@ azusaar.event.SearchEventBase.prototype = {
                     if(startedAt){
                         if( (day && startedAt.sameDay(params)) || (!day && startedAt.sameMonth(params)) ){
                             events[i].title = util.trim(events[i].title);
-                            that.addCallback(events[i]);
+                            that.addCallback({event: events[i], kind: kind});
                         }
                     }
                 }
@@ -192,6 +219,14 @@ azusaar.event.zusaar = new azusaar.event.SearchEventBase({
     canUseAllReturn: true
 });
 
+azusaar.event.zusaar_origin = new azusaar.event.SearchEventBase({
+    apiUrl:"http://www.zusaar.com/api/event/",
+    icon:"zusaar",
+    cache: false,
+    format:"jsonp",
+    canUseAllReturn: false
+});
+
 azusaar.event.kokucheese = new azusaar.event.SearchEventBase({
     apiUrl:"/api/kokucheese",
     icon:"kokucheese",
@@ -206,6 +241,14 @@ azusaar.event.partake = new azusaar.event.SearchEventBase({
     cache: true,
     format:"json",
     canUseAllReturn: true
+});
+
+azusaar.event.partake_user = new azusaar.event.SearchEventBase({
+    apiUrl:"/api/partakeUser",
+    icon:"partake",
+    cache: true,
+    format:"json",
+    canUseAllReturn: false
 });
 
 azusaar.event.connpass = new azusaar.event.SearchEventBase({

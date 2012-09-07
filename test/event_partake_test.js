@@ -22,9 +22,9 @@ $(document).ready(function(){
 
         var actualStartedAt;
         var actualEventCount = 0;
-        sut.addCallback = function(event){
+        sut.addCallback = function(params){
             actualEventCount++;
-            actualStartedAt = azusaar.util.parseDate(event.started_at);
+            actualStartedAt = azusaar.util.parseDate(params.event.started_at);
         };
         sut.pagingFinishCallback = sinon.stub();
 
@@ -42,9 +42,9 @@ $(document).ready(function(){
 
         var actualStartedAt;
         var actualEventCount = 0;
-        sut.addCallback = function(event){
+        sut.addCallback = function(params){
             actualEventCount++;
-            actualStartedAt = azusaar.util.parseDate(event.started_at);
+            actualStartedAt = azusaar.util.parseDate(params.event.started_at);
         };
         sut.pagingFinishCallback = sinon.stub();
 

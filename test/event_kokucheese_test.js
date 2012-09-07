@@ -22,17 +22,17 @@ $(document).ready(function(){
 
         var actualStartedAt;
         var actualEventCount = 0;
-        sut.addCallback = function(event){
+        sut.addCallback = function(params){
             actualEventCount++;
-            actualStartedAt = azusaar.util.parseDate(event.started_at);
+            actualStartedAt = azusaar.util.parseDate(params.event.started_at);
         };
         sut.pagingFinishCallback = sinon.stub();
 
-        var d = sut.searchMonthly({year:2012, month:4});
+        var d = sut.searchMonthly({year:2011, month:8});
         d.then(function(){
             start();
-            assert.strictEqual(actualEventCount, 2217);
-            assert.ok(actualStartedAt.sameMonth({year:2012, month: 4}), "actual="+actualStartedAt);
+            assert.strictEqual(actualEventCount, 416);
+            assert.ok(actualStartedAt.sameMonth({year:2011, month: 8}), "actual="+actualStartedAt);
         });
     });
 
@@ -42,9 +42,9 @@ $(document).ready(function(){
 
         var actualStartedAt;
         var actualEventCount = 0;
-        sut.addCallback = function(event){
+        sut.addCallback = function(params){
             actualEventCount++;
-            actualStartedAt = azusaar.util.parseDate(event.started_at);
+            actualStartedAt = azusaar.util.parseDate(params.event.started_at);
         };
         sut.pagingFinishCallback = sinon.stub();
 
