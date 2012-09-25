@@ -72,6 +72,18 @@ $(document).ready(function(){
         assert.strictEqual(actual.getSeconds(), 20);
     });
 
+    test("test parseDate: no second", function() {
+        expect(6);
+        var actual = azusaar.util.parseDate("2012-09-30T12:45+09:00");
+
+        assert.strictEqual(actual.getFullYear(), 2012);
+        assert.strictEqual(actual.getMonth(), 9-1);
+        assert.strictEqual(actual.getDate(), 30);
+        assert.strictEqual(actual.getHours(), 12);
+        assert.strictEqual(actual.getMinutes(), 45);
+        assert.strictEqual(actual.getSeconds(), 0);
+    });
+
     test("test isSearch", function() {
         expect(7);
         assert.ok(azusaar.util.isSearch(null));

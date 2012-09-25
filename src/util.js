@@ -9,8 +9,12 @@ if(!this.azusaar) {
 azusaar.util = (function(){
     // public methods
     function parseDate(str){
-        if(str && str.match(/(\d+)-(\d+)-(\d+)T(\d+):(\d+):(\d+)/)){
-            return new Date(RegExp.$1, RegExp.$2-1, RegExp.$3, RegExp.$4, RegExp.$5, RegExp.$6);
+        if(str){
+            if(str.match(/(\d+)-(\d+)-(\d+)T(\d+):(\d+):(\d+)/)){
+                return new Date(RegExp.$1, RegExp.$2-1, RegExp.$3, RegExp.$4, RegExp.$5, RegExp.$6);
+            } else if(str.match(/(\d+)-(\d+)-(\d+)T(\d+):(\d+)/)){
+                return new Date(RegExp.$1, RegExp.$2-1, RegExp.$3, RegExp.$4, RegExp.$5, 0);
+            }
         }
         return null;
     }
