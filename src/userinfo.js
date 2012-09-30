@@ -6,9 +6,12 @@ azusaar.userinfo = (function() {
 	// public methods
 	function main(params){
 		$.ajax({
+			cache: false,
+			type: "GET",
 			async : true,
 			url : "/auth/userInfo",
-			dataType : "json"
+			dataType : "jsonp",
+			jsonp : "callback"
 		}).done(function(res, status){
 			if(status != "success"){
 				return;
@@ -56,7 +59,9 @@ azusaar.userinfo = (function() {
 
 	function showNotLoginedHeader(){
 		$("<li>").append(
-			$("<a/>").attr("href", "/home/").text("Twitterでログイン")
+			$("<a/>").attr("href", "/home/").append(
+				$("<img/>").attr({src: "../img/sign-in-with-twitter-l.png", alt:"Twitterでログイン", title:"Twitterでログイン"})
+			)
 		).appendTo($("#userInfoArea"));
 	}
 
