@@ -199,7 +199,11 @@ azusaar.event.SearchEventBase.prototype = {
                 successCallback(response, status);
             }
         });
-        azusaar.main.showPageLoadingMsg(true);
+
+        if(kind == "other"){
+            azusaar.main.showPageLoadingMsg(true);
+        }
+
     }
 };
 
