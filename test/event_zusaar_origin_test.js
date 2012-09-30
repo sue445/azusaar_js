@@ -29,7 +29,7 @@ $(document).ready(function(){
         var d = sut.searchMonthly({year:2012, month:4});
         d.then(function(){
             start();
-            assert.strictEqual(actualEventCount, 87);
+            assert.strictEqual(actualEventCount, 88);
             assert.ok(actualStartedAt.sameMonth({year:2012, month: 4}), "actual="+actualStartedAt);
         });
     });
