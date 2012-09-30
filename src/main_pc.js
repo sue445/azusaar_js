@@ -9,30 +9,10 @@ azusaar.main = (function(){
         var day = azusaar.util.parseDate(event.started_at).getDate();
         var li = $("<li/>").addClass(icon).addClass(params.kind);
 
-        var mapUrl = null;
-        if(event.lat && event.lon){
-            mapUrl = "map.html?lat=" + event.lat + "&lng=" + event.lon + "&place=" + event.place;
-        } else if(event.address){
-            mapUrl = "map.html?address=" + event.address + "&place=" + event.place;
-        }
+        var mapUrl = createMapUrl(event);
 
         if(mapUrl){
-            (function(e){
-                var a = $("<a/>")
-                    .addClass("map")
-                    .attr("href",  "javascript:void(0);return false;")
-                    .attr("title",  "「" + e.place + "」周辺の地図とホテル")
-                    .attr("alt",  "「" + e.place + "」周辺の地図とホテル")
-                    .click(function(){
-                        $("#mapDialogId").dialog({title: "「" + e.place + "」周辺の地図とホテル"}).dialog("open");
-                        $("#modalIframeId").attr("src", mapUrl);
-                        return false;
-                    })
-                    .append(
-                    $("<img/>").attr("src", "img/compass.png")
-                );
-                li.append(a);
-            })(event);
+            li.append( createMapLink(event, mapUrl) );
         }
 
         var link = $("<a/>")
@@ -159,6 +139,51 @@ azusaar.main = (function(){
         });
     }
 
+    function dispHatebuRanking(){
+        $.ajax({
+            traditional : true,
+            async : true,
+            cache : true,
+            type: "GET",
+            url: "/api/hatebuRanking",
+            dataType: "json",
+            success : function(response, status){
+                if(status != "success"){
+                    return;
+                }
+
+                $(response).each(function(){
+                    var event = this;
+                    var li = $("<li/>").addClass(event.eventKind).text(yymm(event.startedAt) + " ");
+
+                    var mapUrl = createMapUrl(event);
+
+                    if(mapUrl){
+                        createMapLink(event, mapUrl).appendTo(li);
+                    }
+
+                    $("<a/>").attr({
+                        href : event.eventUrl,
+                        alt: event.title,
+                        title: event.title
+                    }).text(event.title).appendTo(li);
+                    $("<span>").text(" ").appendTo(li);
+                    $("<a/>")
+                        .attr("href", "http://b.hatena.ne.jp/entry/" + event.eventUrl)
+                        .append(
+                            $("<img/>").attr({
+                                src: "http://b.hatena.ne.jp/entry/image/" + event.eventUrl,
+                                alt: "はてなブックマーク - " + event.title,
+                                title: "はてなブックマーク - " + event.title
+                            })
+                         ).appendTo(li);
+
+                    $("#hatebuRanking ul").append(li)
+                });
+            }
+        });
+    }
+
     function showPageLoadingMsg(flag){
         if(flag){
             $("#loading").css("visibility", "visible");
@@ -177,13 +202,14 @@ azusaar.main = (function(){
         dispTotal: dispTotal,
         clearCount : clearCount,
         dispHotKeyword: dispHotKeyword,
+        dispHatebuRanking: dispHatebuRanking,
         showPageLoadingMsg : showPageLoadingMsg,
         searchForward : searchForward
     };
 
     // private methods
     function dispSiteCount(target, name){
-    	var count = 0;
+      var count = 0;
         if(siteCounts && siteCounts[name]){
             count = siteCounts[name];
         }
@@ -192,6 +218,44 @@ azusaar.main = (function(){
 
     function existsEvent(day, event_url){
         return $("#allDay" + day + " ul.event li a[href='"+ event_url +"']").length > 0
+    }
+
+    function yymm(str){
+        var date = azusaar.util.parseDate(str);
+        if(date){
+            return date.getRealMonth() + "/" + date.getDate();
+        }
+        return "";
+    }
+
+    function createMapUrl(event) {
+        if(event.lat && event.lon){
+            return "map.html?lat=" + event.lat + "&lng=" + event.lon + "&place=" + event.place;
+        } else if(event.address){
+            return "map.html?address=" + event.address + "&place=" + event.place;
+        }
+        return null;
+    }
+
+    function createMapLink(event, mapUrl) {
+        var a = $("<a/>");
+
+        (function(_event, _mapUrl, _a){
+            _a.addClass("map")
+                .attr("href",  "javascript:void(0);return false;")
+                .attr("title",  "「" + _event.place + "」周辺の地図とホテル")
+                .attr("alt",  "「" + _event.place + "」周辺の地図とホテル")
+                .click(function(){
+                    $("#mapDialogId").dialog({title: "「" + _event.place + "」周辺の地図とホテル"}).dialog("open");
+                    $("#modalIframeId").attr("src", _mapUrl);
+                    return false;
+                })
+                .append(
+                    $("<img/>").attr("src", "img/compass.png")
+                );
+        })(event, mapUrl, a);
+
+        return a;
     }
 
     var totalCount;
