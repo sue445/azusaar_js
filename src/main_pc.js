@@ -143,7 +143,7 @@ azusaar.main = (function(){
         $.ajax({
             traditional : true,
             async : true,
-            cache : true,
+            cache : false,
             type: "GET",
             url: "/api/hatebuRanking",
             dataType: "json",
