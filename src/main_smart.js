@@ -233,3 +233,6 @@ azusaar.event.partake_user.addCallback = function(params){
 azusaar.event.connpass.addCallback = function(params){
     azusaar.main.addEvent(params, "connpass");
 };
+azusaar.event.doorkeeper.addCallback = function(params){
+    azusaar.main.addEvent(params, "doorkeeper");
+};

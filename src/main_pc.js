@@ -98,6 +98,7 @@ azusaar.main = (function(){
         dispSiteCount("#countKokucheese", "kokucheese");
         dispSiteCount("#countPartake", "partake");
         dispSiteCount("#countConnpass", "connpass");
+        dispSiteCount("#countDoorkeeper", "doorkeeper");
     }
 
     function clearCount(){
@@ -232,7 +233,8 @@ azusaar.main = (function(){
         if(event.lat && event.lon){
             return "map.html?lat=" + event.lat + "&lng=" + event.lon + "&place=" + event.place;
         } else if(event.address){
-            return "map.html?address=" + event.address + "&place=" + event.place;
+            var place = event.place || event.address;
+            return "map.html?address=" + event.address + "&place=" + place;
         }
         return null;
     }
@@ -246,7 +248,11 @@ azusaar.main = (function(){
                 .attr("title",  "「" + _event.place + "」周辺の地図とホテル")
                 .attr("alt",  "「" + _event.place + "」周辺の地図とホテル")
                 .click(function(){
-                    $("#mapDialogId").dialog({title: "「" + _event.place + "」周辺の地図とホテル"}).dialog("open");
+                    $("#mapDialogId").dialog({
+                        title: "「" + _event.place + "」周辺の地図とホテル",
+                        width : 550,
+                        height : 550
+                    }).dialog("open");
                     $("#modalIframeId").attr("src", _mapUrl);
                     return false;
                 })
@@ -285,4 +291,7 @@ azusaar.event.partake_user.addCallback = function(params){
 };
 azusaar.event.connpass.addCallback = function(params){
     azusaar.main.addEvent(params, "connpass");
+};
+azusaar.event.doorkeeper.addCallback = function(params){
+    azusaar.main.addEvent(params, "doorkeeper");
 };

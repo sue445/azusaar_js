@@ -247,6 +247,14 @@ azusaar.event.partake = new azusaar.event.SearchEventBase({
     canUseAllReturn: true
 });
 
+azusaar.event.doorkeeper = new azusaar.event.SearchEventBase({
+    apiUrl:"/api/doorkeeper",
+    icon:"doorkeeper",
+    cache: true,
+    format:"json",
+    canUseAllReturn: true
+});
+
 azusaar.event.partake_user = new azusaar.event.SearchEventBase({
     apiUrl:"/api/partakeUser",
     icon:"partake",

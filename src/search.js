@@ -19,6 +19,7 @@ azusaar.search = (function(){
     var isSearchKokucheese;
     var isSearchPartake;
     var isSearchConnpass;
+    var isSearchDoorkeeper;
 
 
     // public methods
@@ -35,6 +36,7 @@ azusaar.search = (function(){
         isSearchKokucheese = params.isSearchKokucheese;
         isSearchPartake = params.isSearchPartake;
         isSearchConnpass = params.isSearchConnpass;
+        isSearchDoorkeeper = params.isSearchDoorkeeper;
 
         $("#query").val(query.replace(/\+/g," "));
         $("#year").text(year);
@@ -47,6 +49,7 @@ azusaar.search = (function(){
         $("#checkKokucheese").check(isSearchKokucheese);
         $("#checkPartake").check(isSearchPartake);
         $("#checkConnpass").check(isSearchConnpass);
+        $("#checkDoorkeeper").check(isSearchDoorkeeper);
     }
 
     function validate(params){
@@ -79,6 +82,7 @@ azusaar.search = (function(){
         params.isSearchKokucheese = azusaar.util.isSearch(params.isSearchKokucheese);
         params.isSearchPartake = azusaar.util.isSearch(params.isSearchPartake);
         params.isSearchConnpass = azusaar.util.isSearch(params.isSearchConnpass);
+        params.isSearchDoorkeeper = azusaar.util.isSearch(params.isSearchDoorkeeper);
 
         return params;
     }
@@ -106,8 +110,9 @@ azusaar.search = (function(){
         var ko = this.checkValue("checkKokucheese");
         var pa = this.checkValue("checkPartake");
         var co = this.checkValue("checkConnpass");
+        var dk = this.checkValue("checkDoorkeeper");
 
-        var query = $.query.set("q", q).set("at", at).set("ea", ea).set("zu", zu).set("ko", ko).set("pa", pa).set("co", co);
+        var query = $.query.set("q", q).set("at", at).set("ea", ea).set("zu", zu).set("ko", ko).set("pa", pa).set("co", co).set("dk", dk);
         if(params.year && params.month){
             query = query.set("y", params.year).set("m", params.month);
         } else{
@@ -132,7 +137,8 @@ azusaar.search = (function(){
             isSearchZusaar ? azusaar.event.zusaar.searchMonthly(params) : null,
             isSearchKokucheese ? azusaar.event.kokucheese.searchMonthly(params) : null,
             isSearchPartake ? azusaar.event.partake.searchMonthly(params) : null,
-            isSearchConnpass ? azusaar.event.connpass.searchMonthly(params) : null
+            isSearchConnpass ? azusaar.event.connpass.searchMonthly(params) : null,
+            isSearchDoorkeeper ? azusaar.event.doorkeeper.searchMonthly(params) : null
         );
     }
 
@@ -149,7 +155,8 @@ azusaar.search = (function(){
             // can use dayUnique
             isSearchZusaar ? azusaar.event.zusaar.searchMonthly(params) : null,
             isSearchKokucheese ? azusaar.event.kokucheese.searchMonthly(params) : null,
-            isSearchPartake ? azusaar.event.partake.searchMonthly(params) : null
+            isSearchPartake ? azusaar.event.partake.searchMonthly(params) : null,
+            isSearchDoorkeeper ? azusaar.event.doorkeeper.searchMonthly(params) : null
         ).done(function(){
                 params.days = azusaar.main.getRemainingDays({year: year, month:month});
                 if(!params.days){
@@ -209,7 +216,8 @@ azusaar.search = (function(){
             isSearchZusaar ? azusaar.event.zusaar.searchDaily(params) : null,
             isSearchKokucheese ? azusaar.event.kokucheese.searchDaily(params) : null,
             isSearchPartake ? azusaar.event.partake.searchDaily(params) : null,
-            isSearchConnpass ? azusaar.event.connpass.searchDaily(params) : null
+            isSearchConnpass ? azusaar.event.connpass.searchDaily(params) : null,
+            isSearchDoorkeeper ? azusaar.event.doorkeeper.searchDaily(params) : null
         );
     }
 
