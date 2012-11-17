@@ -141,6 +141,30 @@ azusaar.map = (function(){
         ymap.closeInfoWindow();
     }
 
+    function routeSearch(){
+        navigator.geolocation.getCurrentPosition(function(current){
+            // 現在地から検索
+            var plugin = new Y.RouteSearchPlugin({
+                latlngs: [
+                    new Y.LatLng(current.coords.latitude,current.coords.longitude),
+                    new Y.LatLng(lat,lng)
+                ]
+            });
+            ymap.addPlugin(plugin);
+            $("#routeDescription").css("color","red").text("右クリックで位置を変更できます");
+        }, function(error){
+            // 現在地が取れないため手動で設定
+            var plugin = new Y.RouteSearchPlugin({
+                latlngs: [
+                    new Y.LatLng(lat,lng),
+                    new Y.LatLng(lat,lng),
+                ]
+            });
+            ymap.addPlugin(plugin);
+            $("#routeDescription").css("color","red").text("右クリックで位置を変更できます");
+        });
+    }
+
     return {
         init : init,
         addMarker : addMarker,
@@ -149,7 +173,8 @@ azusaar.map = (function(){
         searchHotel : searchHotel,
         geodosu : geodosu,
         geocode : geocode,
-        getStar : getStar
+        getStar : getStar,
+        routeSearch : routeSearch
     };
 
     // private methods
@@ -173,6 +198,7 @@ azusaar.map = (function(){
         ymap.bind("click", function(){
             ymap.closeInfoWindow();
         });
+
     }
 
     function addPlaceMarker(params) {
