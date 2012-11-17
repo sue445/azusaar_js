@@ -12,6 +12,7 @@ $(document).ready(function(){
             $("#qunit-fixture").append('<input id="checkKokucheese" type="checkbox"/>');
             $("#qunit-fixture").append('<input id="checkPartake" type="checkbox"/>');
             $("#qunit-fixture").append('<input id="checkConnpass" type="checkbox"/>');
+            $("#qunit-fixture").append('<input id="checkDoorkeeper" type="checkbox"/>');
 
             // disp count
             $("#qunit-fixture").append( $('<span id="countAtnd"></span>') );
@@ -20,12 +21,13 @@ $(document).ready(function(){
             $("#qunit-fixture").append( $('<span id="countKokucheese"></span>') );
             $("#qunit-fixture").append( $('<span id="countPartake"></span>') );
             $("#qunit-fixture").append( $('<span id="countConnpass"></span>') );
+            $("#qunit-fixture").append( $('<span id="countDoorkeeper"></span>') );
             $("#qunit-fixture").append( $('<span id="total">0</span>件') );
         }
     });
 
     test("init", function() {
-        expect(10);
+        expect(11);
         var params = {
             query: "keyword",
             year: 2012,
@@ -36,7 +38,8 @@ $(document).ready(function(){
             isSearchZusaar: true,
             isSearchKokucheese: true,
             isSearchPartake: true,
-            isSearchConnpass: true
+            isSearchConnpass: true,
+            isSearchDoorkeeper: true
         };
 
         azusaar.search.init(params);
@@ -52,6 +55,7 @@ $(document).ready(function(){
         assert.ok($("#checkKokucheese").attr("checked"));
         assert.ok($("#checkPartake").attr("checked"));
         assert.ok($("#checkConnpass").attr("checked"));
+        assert.ok($("#checkDoorkeeper").attr("checked"));
     });
 
     test("curentDate", function() {
@@ -91,12 +95,13 @@ $(document).ready(function(){
             isSearchZusaar: true,
             isSearchKokucheese: true,
             isSearchPartake: true,
-            isSearchConnpass: true
+            isSearchConnpass: true,
+            isSearchDoorkeeper: true
         };
 
         azusaar.search.init(params);
 
-        assert.strictEqual(azusaar.search.createSearchParam(), "?q=keyword&at=1&ea=1&zu=1&ko=1&pa=1&co=1&y=2012&m=4")
+        assert.strictEqual(azusaar.search.createSearchParam(), "?q=keyword&at=1&ea=1&zu=1&ko=1&pa=1&co=1&dk=1&y=2012&m=4")
     });
 
     test("createSearchParam without day", function() {
@@ -110,12 +115,13 @@ $(document).ready(function(){
             isSearchZusaar: true,
             isSearchKokucheese: true,
             isSearchPartake: true,
-            isSearchConnpass: true
+            isSearchConnpass: true,
+            isSearchDoorkeeper: true
         };
 
         azusaar.search.init(params);
 
-        assert.strictEqual(azusaar.search.createSearchParam({year:2012, month:5}), "?q=keyword&at=1&ea=1&zu=1&ko=1&pa=1&co=1&y=2012&m=5")
+        assert.strictEqual(azusaar.search.createSearchParam({year:2012, month:5}), "?q=keyword&at=1&ea=1&zu=1&ko=1&pa=1&co=1&dk=1&y=2012&m=5")
     });
 
     test("createSearchParam with day", function() {
@@ -129,16 +135,17 @@ $(document).ready(function(){
             isSearchZusaar: true,
             isSearchKokucheese: true,
             isSearchPartake: true,
-            isSearchConnpass: true
+            isSearchConnpass: true,
+            isSearchDoorkeeper: true
         };
 
         azusaar.search.init(params);
 
-        assert.strictEqual(azusaar.search.createSearchParam({year:2012, month:5, day:17}), "?q=keyword&at=1&ea=1&zu=1&ko=1&pa=1&co=1&y=2012&m=5&d=17")
+        assert.strictEqual(azusaar.search.createSearchParam({year:2012, month:5, day:17}), "?q=keyword&at=1&ea=1&zu=1&ko=1&pa=1&co=1&dk=1&y=2012&m=5&d=17")
     });
 
     test("validate", function() {
-        expect(10);
+        expect(11);
 
         var params = {
             query : $.query.get("query"),
@@ -150,7 +157,8 @@ $(document).ready(function(){
             isSearchZusaar : $.query.get("zu"),
             isSearchKokucheese : $.query.get("ko"),
             isSearchPartake : $.query.get("pa"),
-            isSearchConnpass : $.query.get("co")
+            isSearchConnpass : $.query.get("co"),
+            isSearchDoorkeeper : $.query.get("dk")
         };
 
         var actual = azusaar.search.validate(params);
@@ -166,6 +174,7 @@ $(document).ready(function(){
         assert.ok(actual.isSearchKokucheese);
         assert.ok(actual.isSearchPartake);
         assert.ok(actual.isSearchConnpass);
+        assert.ok(actual.isSearchDoorkeeper);
     });
 
 });
