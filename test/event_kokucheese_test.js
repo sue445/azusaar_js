@@ -31,7 +31,7 @@ $(document).ready(function(){
         var d = sut.searchMonthly({year:2011, month:8});
         d.then(function(){
             start();
-            assert.strictEqual(actualEventCount, 416);
+            assertThat(actualEventCount).is.greaterThan(0);
             assert.ok(actualStartedAt.sameMonth({year:2011, month: 8}), "actual="+actualStartedAt);
         });
     });
@@ -51,7 +51,7 @@ $(document).ready(function(){
         var d = sut.searchDaily({year:2012, month:3, day: 1});
         d.then(function(){
             start();
-            assert.strictEqual(actualEventCount, 33);
+            assertThat(actualEventCount).is.greaterThan(0);
             assert.ok(actualStartedAt.sameDay({year:2012, month: 3, day: 1}), "actual="+actualStartedAt);
         });
     });

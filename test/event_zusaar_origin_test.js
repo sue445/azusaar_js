@@ -29,7 +29,7 @@ $(document).ready(function(){
         var d = sut.searchMonthly({year:2012, month:4});
         d.then(function(){
             start();
-            assert.strictEqual(actualEventCount, 88);
+            assertThat(actualEventCount).is.greaterThan(0);
             assert.ok(actualStartedAt.sameMonth({year:2012, month: 4}), "actual="+actualStartedAt);
         });
     });
@@ -50,7 +50,7 @@ $(document).ready(function(){
         var d = sut.searchMonthly({year:2012, month:8, owner_id: "agxzfnp1c2Fhci1ocmRyFAsSBFVzZXIiCjQ5MzM0MDFfdHcM"});
         d.then(function(){
             start();
-            assert.strictEqual(actualEventCount, 4);
+            assertThat(actualEventCount).is.greaterThan(0);
             assert.ok(actualStartedAt.sameMonth({year:2012, month: 8}), "actual="+actualStartedAt);
         });
     });
@@ -70,7 +70,7 @@ $(document).ready(function(){
         var d = sut.searchMonthly({year:2012, month:8, user_id: "agxzfnp1c2Fhci1ocmRyFAsSBFVzZXIiCjQ5MzM0MDFfdHcM"});
         d.then(function(){
             start();
-            assert.strictEqual(actualEventCount, 1);
+            assertThat(actualEventCount).is.greaterThan(0);
             assert.ok(actualStartedAt.sameMonth({year:2012, month: 8}), "actual="+actualStartedAt);
         });
     });

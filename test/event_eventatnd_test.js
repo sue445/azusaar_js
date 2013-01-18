@@ -29,7 +29,7 @@ $(document).ready(function(){
         var d = sut.searchMonthly({year:2012, month:5});
         d.then(function(){
             start();
-            assert.strictEqual(actualEventCount, 538);
+            assertThat(actualEventCount).is.greaterThan(0);
             assert.ok(actualStartedAt.sameMonth({year:2012, month: 5}), "actual="+actualStartedAt);
         });
     });
@@ -49,7 +49,7 @@ $(document).ready(function(){
         var d = sut.searchDaily({year:2012, month:3, day: 3});
         d.then(function(){
             start();
-            assert.strictEqual(actualEventCount, 28);
+            assertThat(actualEventCount).is.greaterThan(0);
             assert.ok(actualStartedAt.sameDay({year:2012, month: 3, day: 3}), "actual="+actualStartedAt);
         });
     });
