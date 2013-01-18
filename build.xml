@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="node-test" basedir="." default="run">
+    <!-- ref. http://summer-lights.dyndns.ws/diarysys4/?id=1498 -->
+    <property name="prove" location="/usr/bin/prove" />
+    <property name="npm" location="/usr/local/bin/npm"/>
+
+    <target name="run" depends="registry,npm,test"/>
+
+    <target name="registry">
+        <exec executable="${npm}">
+            <arg value="config"/>
+            <arg value="set"/>
+            <arg value="registry"/>
+            <arg value="http://registry.npmjs.org/"/>
+        </exec>
+    </target>
+
+    <target name="npm">
+        <exec executable="${npm}">
+            <arg value="install"/>
+        </exec>
+    </target>
+
+    <target name="test">
+        <exec executable="${prove}">
+            <arg value="--ext=.test.js"/>
+            <arg value="--exec=node"/>
+            <arg value="-l"/>
+            <arg value="test"/>
+            <arg value="--harness"/>
+            <arg value="TAP::Harness::JUnit"/>
+        </exec>
+    </target>
+</project>
