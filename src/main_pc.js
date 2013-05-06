@@ -15,13 +15,13 @@ azusaar.main = (function(){
             li.append( createMapLink(event, mapUrl) );
         }
 
-        var link = $("<a/>")
-            .addClass("event")
-            .attr("href", event.event_url)
-            .attr("alt", event.title)
-            .attr("title", event.title)
-            .text(event.title);
+        var link = $("<a/>").addClass("event").attr({href: event.event_url, alt: event.title, title: event.title}).text(event.title);
         li.append(link);
+
+        var icon = $("<a/>").attr({href: event.event_url, target: "_blank", alt: "別ウィンドウで開く", title: "別ウィンドウで開く"}).append(
+            $("<i>").addClass("icon-share")
+        );
+        li.append(icon);
 
         if(params.kind == "owner" || params.kind == "user"){
             if(existsEvent(day, event.event_url)){
@@ -163,12 +163,12 @@ azusaar.main = (function(){
                         createMapLink(event, mapUrl).appendTo(li);
                     }
 
-                    $("<a/>").attr({
-                        href : event.eventUrl,
-                        alt: event.title,
-                        title: event.title
-                    }).text(event.title).appendTo(li);
+                    $("<a/>").attr({href : event.eventUrl,alt: event.title,title: event.title}).text(event.title).appendTo(li);
                     $("<span>").text(" ").appendTo(li);
+                    $("<a/>").attr({href: event.event_url, target: "_blank", alt: "別ウィンドウで開く", title: "別ウィンドウで開く"}).append(
+                        $("<i>").addClass("icon-share")
+                    ).appendTo(li);
+
                     $("<a/>")
                         .attr("href", "http://b.hatena.ne.jp/entry/" + event.eventUrl)
                         .append(
