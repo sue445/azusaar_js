@@ -165,7 +165,7 @@ azusaar.main = (function(){
 
                     $("<a/>").attr({href : event.eventUrl,alt: event.title,title: event.title}).text(event.title).appendTo(li);
                     $("<span>").text(" ").appendTo(li);
-                    $("<a/>").attr({href: event.event_url, target: "_blank", alt: "別ウィンドウで開く", title: "別ウィンドウで開く"}).append(
+                    $("<a/>").attr({href: event.eventUrl, target: "_blank", alt: "別ウィンドウで開く", title: "別ウィンドウで開く"}).append(
                         $("<i>").addClass("icon-share")
                     ).appendTo(li);
 
