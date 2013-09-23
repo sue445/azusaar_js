@@ -86,6 +86,8 @@ azusaar.main = (function(){
         siteCounts[icon] = siteCounts[icon] || 0;
         totalCount = totalCount || 0;
 
+        console.log(icon, siteCounts[icon], totalCount);
+
         ++siteCounts[icon];
         ++totalCount;
     }
@@ -210,7 +212,7 @@ azusaar.main = (function(){
 
     // private methods
     function dispSiteCount(target, name){
-      var count = 0;
+        var count = 0;
         if(siteCounts && siteCounts[name]){
             count = siteCounts[name];
         }
