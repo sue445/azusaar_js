@@ -15,13 +15,14 @@ azusaar.main = (function(){
             li.append( createMapLink(event, mapUrl) );
         }
 
-        var link = $("<a/>").addClass("event").attr({href: event.event_url, alt: event.title, title: event.title}).text(event.title);
-        li.append(link);
+        $("<a/>").addClass("event").
+            attr({href: event.event_url, alt: event.title, title: event.title}).
+            text(event.title).
+            appendTo(li);
 
-        var icon = $("<a/>").attr({href: event.event_url, target: "_blank", alt: "別ウィンドウで開く", title: "別ウィンドウで開く"}).append(
-            $("<i>").addClass("icon-share")
-        );
-        li.append(icon);
+        $("<a/>").attr({href: event.event_url, target: "_blank", alt: "別ウィンドウで開く", title: "別ウィンドウで開く"}).
+            append( $("<i>").addClass("icon-share") ).
+            appendTo(li);
 
         if(params.kind == "owner" || params.kind == "user"){
             if(existsEvent(day, event.event_url)){
@@ -85,8 +86,6 @@ azusaar.main = (function(){
         siteCounts = siteCounts || {};
         siteCounts[icon] = siteCounts[icon] || 0;
         totalCount = totalCount || 0;
-
-        console.log(icon, siteCounts[icon], totalCount);
 
         ++siteCounts[icon];
         ++totalCount;
