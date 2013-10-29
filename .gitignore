@@ -4,5 +4,6 @@
 # except for .gitignore
 !.gitignore
 !.proverc
+!.travis.yml
 
 *.orig

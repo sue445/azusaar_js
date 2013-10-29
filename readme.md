@@ -1,4 +1,4 @@
-# Files
+# Files [![Build Status](https://travis-ci.org/sue445/azusaar_js.png)](https://travis-ci.org/sue445/azusaar_js)
 - product code
  - src/ : source script
  - lib/ : libraries for product code (ex. jquery)
