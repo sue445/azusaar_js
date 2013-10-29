@@ -16,12 +16,11 @@ azusaar.rakuten = (function(){
             traditional : true,
             async : true,
             type: "GET",
-            url: "http://api.rakuten.co.jp/rws/3.0/json",
+            url: "https://app.rakuten.co.jp/services/api/Travel/SimpleHotelSearch/20131024",
             data: {
-                "developerId": "16acb4ff674248c418c2c0a86ddd7f25",
+                "format": "json",
+                "applicationId": "1004785912111088388",
                 "affiliateId": "0e4bf612.78e44a99.0e4bf613.93f05879",
-                "operation": "SimpleHotelSearch",
-                "version": "2009-10-20",
                 "latitude": lat,
                 "longitude": lng,
                 "datumType": 1,
@@ -30,19 +29,11 @@ azusaar.rakuten = (function(){
                 "allReturnFlag" : 1
             },
             dataType: "jsonp",
-            jsonp : "callBack",
+            jsonp : "callback",
             success : function(response, status){
-                if(status != "success"){
-                    alert("[rakuten.js]\nAPIの取得に失敗");
-                    return;
-                } else if(response.Header.Status != "Success"){
-                    alert("[rakuten.js]\nエラーコード:"+ response.Header.Status + "\nエラー詳細:" + response.Header.StatusMsg);
-                    return;
-                }
-
-                var hotels = response.Body.SimpleHotelSearch.hotel;
+                var hotels = response.hotels;
                 for(var i = 0; i < hotels.length; i++){
-                    params.hotelCallback(hotels[i]);
+                    params.hotelCallback(hotels[i].hotel[0]);
                 }
             }
         });
