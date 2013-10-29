@@ -16,4 +16,4 @@
  - prove
 
 # QUnit tests
-http://sue445.github.com/azusaar_js/index.html
+http://sue445.github.io/azusaar_js/index.html
