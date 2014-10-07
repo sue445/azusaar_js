@@ -77,7 +77,6 @@ azusaar.util = (function(){
         var day = $.query.get("d");
         var query = $.query.get("q");
         var isSearchAtnd = util.isSearch($.query.get("at"));
-        var isSearchEventAtnd = util.isSearch($.query.get("ea"));
         var isSearchZusaar = util.isSearch($.query.get("zu"));
         var isSearchKokucheese = util.isSearch($.query.get("ko"));
         var isSearchPartake = util.isSearch($.query.get("pa"));
@@ -108,7 +107,6 @@ azusaar.util = (function(){
             day : day,
             query : query,
             isSearchAtnd : isSearchAtnd,
-            isSearchEventAtnd : isSearchEventAtnd,
             isSearchZusaar : isSearchZusaar,
             isSearchKokucheese : isSearchKokucheese,
             isSearchPartake : isSearchPartake,
