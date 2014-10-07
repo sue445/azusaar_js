@@ -127,18 +127,33 @@ azusaar.event.SearchEventBase.prototype = {
         var that = this;
 
         var eventCallback = function(events){
-            if(events && events.length > 0){
-                for(var i = 0; i < events.length; i++){
-                    var startedAt = util.parseDate(events[i].started_at);
-                    if(startedAt){
-                        if( (day && startedAt.sameDay(params)) || (!day && startedAt.sameMonth(params)) ){
-                            events[i].title = util.trim(events[i].title);
-                            that.addCallback({event: events[i], kind: kind});
+            if(events){
+                if(events.length && events.length > 0){
+                    // other
+                    for(var i = 0; i < events.length; i++){
+                        var startedAt = util.parseDate(events[i].started_at);
+                        if(startedAt){
+                            if( (day && startedAt.sameDay(params)) || (!day && startedAt.sameMonth(params)) ){
+                                events[i].title = util.trim(events[i].title);
+                                that.addCallback({event: events[i], kind: kind});
+                            }
                         }
                     }
-                }
-                if(azusaar.main && azusaar.main.dispTotal){
-                    azusaar.main.dispTotal();
+                    if(azusaar.main && azusaar.main.dispTotal){
+                        azusaar.main.dispTotal();
+                    }
+                } else{
+                    // atnd
+                    var startedAt = util.parseDate(events.started_at);
+                    if(startedAt){
+                        if( (day && startedAt.sameDay(params)) || (!day && startedAt.sameMonth(params)) ){
+                            events.title = util.trim(events.title);
+                            that.addCallback({event: events, kind: kind});
+                        }
+                    }
+                    if(azusaar.main && azusaar.main.dispTotal){
+                        azusaar.main.dispTotal();
+                    }
                 }
             }
         };
@@ -161,12 +176,12 @@ azusaar.event.SearchEventBase.prototype = {
             }
 
             if(response.events && response.events.length > 0 && response.events[0] && response.events[0].event){
-                // for. eventatnd
+                // for. eventatnd, atnd
                 for(var i = 0; i < response.events.length; i++){
                     eventCallback(response.events[i].event);
                 }
             } else if(response.events){
-                // for. atnd, connpass
+                // for. connpass
                 eventCallback(response.events);
             } else if(response.event){
                 eventCallback(response.event);
