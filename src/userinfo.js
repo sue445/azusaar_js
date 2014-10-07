@@ -22,7 +22,6 @@ azusaar.userinfo = (function() {
 
 				if(params){
 					searchAtnd(params, res.screenName);
-					searchEventAtnd(params, res.screenName);
 					searchZusaar(params, res.zusaarId);
 					searchConnpass(params, res.connpassId);
 					searchPartake(params, res.partakeId);
@@ -69,13 +68,6 @@ azusaar.userinfo = (function() {
 		if(screenName){
 			azusaar.event.atnd.searchMonthly({year: params.year, month: params.month, twitter_id: screenName});
 			azusaar.event.atnd.searchMonthly({year: params.year, month: params.month, owner_twitter_id: screenName});
-		}
-	}
-
-	function searchEventAtnd(params, screenName){
-		if(screenName){
-			azusaar.event.eventatnd.searchMonthly({year: params.year, month: params.month, twitter_id: screenName});
-			azusaar.event.eventatnd.searchMonthly({year: params.year, month: params.month, owner_twitter_id: screenName});
 		}
 	}
 

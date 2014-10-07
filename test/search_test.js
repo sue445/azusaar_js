@@ -7,7 +7,6 @@ $(document).ready(function(){
             $("#qunit-fixture").append('<span id="month"/>');
             $("#qunit-fixture").append('<span id="day"/>');
             $("#qunit-fixture").append('<input id="checkAtnd" type="checkbox"/>');
-            $("#qunit-fixture").append('<input id="checkEventAtnd" type="checkbox"/>');
             $("#qunit-fixture").append('<input id="checkZusaar" type="checkbox"/>');
             $("#qunit-fixture").append('<input id="checkKokucheese" type="checkbox"/>');
             $("#qunit-fixture").append('<input id="checkPartake" type="checkbox"/>');
@@ -16,7 +15,6 @@ $(document).ready(function(){
 
             // disp count
             $("#qunit-fixture").append( $('<span id="countAtnd"></span>') );
-            $("#qunit-fixture").append( $('<span id="countEventAtnd"></span>') );
             $("#qunit-fixture").append( $('<span id="countZusaar"></span>') );
             $("#qunit-fixture").append( $('<span id="countKokucheese"></span>') );
             $("#qunit-fixture").append( $('<span id="countPartake"></span>') );
@@ -27,14 +25,13 @@ $(document).ready(function(){
     });
 
     test("init", function() {
-        expect(11);
+        expect(10);
         var params = {
             query: "keyword",
             year: 2012,
             month: 5,
             day: 17,
             isSearchAtnd: true,
-            isSearchEventAtnd: true,
             isSearchZusaar: true,
             isSearchKokucheese: true,
             isSearchPartake: true,
@@ -50,7 +47,6 @@ $(document).ready(function(){
         assert.strictEqual($("#day").text(), "17");
 
         assert.ok($("#checkAtnd").attr("checked"));
-        assert.ok($("#checkEventAtnd").attr("checked"));
         assert.ok($("#checkZusaar").attr("checked"));
         assert.ok($("#checkKokucheese").attr("checked"));
         assert.ok($("#checkPartake").attr("checked"));
@@ -91,7 +87,6 @@ $(document).ready(function(){
             year: 2012,
             month: 4,
             isSearchAtnd: true,
-            isSearchEventAtnd: true,
             isSearchZusaar: true,
             isSearchKokucheese: true,
             isSearchPartake: true,
@@ -101,7 +96,7 @@ $(document).ready(function(){
 
         azusaar.search.init(params);
 
-        assert.strictEqual(azusaar.search.createSearchParam(), "?q=keyword&at=1&ea=1&zu=1&ko=1&pa=1&co=1&dk=1&y=2012&m=4")
+        assert.strictEqual(azusaar.search.createSearchParam(), "?q=keyword&at=1&zu=1&ko=1&pa=1&co=1&dk=1&y=2012&m=4")
     });
 
     test("createSearchParam without day", function() {
@@ -111,7 +106,6 @@ $(document).ready(function(){
             year: 2012,
             month: 5,
             isSearchAtnd: true,
-            isSearchEventAtnd: true,
             isSearchZusaar: true,
             isSearchKokucheese: true,
             isSearchPartake: true,
@@ -121,7 +115,7 @@ $(document).ready(function(){
 
         azusaar.search.init(params);
 
-        assert.strictEqual(azusaar.search.createSearchParam({year:2012, month:5}), "?q=keyword&at=1&ea=1&zu=1&ko=1&pa=1&co=1&dk=1&y=2012&m=5")
+        assert.strictEqual(azusaar.search.createSearchParam({year:2012, month:5}), "?q=keyword&at=1&zu=1&ko=1&pa=1&co=1&dk=1&y=2012&m=5")
     });
 
     test("createSearchParam with day", function() {
@@ -131,7 +125,6 @@ $(document).ready(function(){
             year: 2012,
             month: 5,
             isSearchAtnd: true,
-            isSearchEventAtnd: true,
             isSearchZusaar: true,
             isSearchKokucheese: true,
             isSearchPartake: true,
@@ -141,11 +134,11 @@ $(document).ready(function(){
 
         azusaar.search.init(params);
 
-        assert.strictEqual(azusaar.search.createSearchParam({year:2012, month:5, day:17}), "?q=keyword&at=1&ea=1&zu=1&ko=1&pa=1&co=1&dk=1&y=2012&m=5&d=17")
+        assert.strictEqual(azusaar.search.createSearchParam({year:2012, month:5, day:17}), "?q=keyword&at=1&zu=1&ko=1&pa=1&co=1&dk=1&y=2012&m=5&d=17")
     });
 
     test("validate", function() {
-        expect(11);
+        expect(10);
 
         var params = {
             query : $.query.get("query"),
@@ -153,7 +146,6 @@ $(document).ready(function(){
             month : $.query.get("m"),
             day : $.query.get("d"),
             isSearchAtnd : $.query.get("at"),
-            isSearchEventAtnd : $.query.get("ea"),
             isSearchZusaar : $.query.get("zu"),
             isSearchKokucheese : $.query.get("ko"),
             isSearchPartake : $.query.get("pa"),
@@ -169,7 +161,6 @@ $(document).ready(function(){
         assert.strictEqual(actual.month, today.getRealMonth());
         assert.strictEqual(actual.day, today.getDate());
         assert.ok(actual.isSearchAtnd);
-        assert.ok(actual.isSearchEventAtnd);
         assert.ok(actual.isSearchZusaar);
         assert.ok(actual.isSearchKokucheese);
         assert.ok(actual.isSearchPartake);

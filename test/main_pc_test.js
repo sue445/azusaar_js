@@ -75,14 +75,12 @@ $(document).ready(function(){
             $("#qunit-fixture").append('<span id="month"/>');
             $("#qunit-fixture").append('<span id="day"/>');
             $("#qunit-fixture").append('<input id="checkAtnd" type="checkbox"/>');
-            $("#qunit-fixture").append('<input id="checkEventAtnd" type="checkbox"/>');
             $("#qunit-fixture").append('<input id="checkZusaar" type="checkbox"/>');
             $("#qunit-fixture").append('<input id="checkKokucheese" type="checkbox"/>');
             $("#qunit-fixture").append('<input id="checkPartake" type="checkbox"/>');
             $("#qunit-fixture").append('<input id="checkConnpass" type="checkbox"/>');
 
             $("#qunit-fixture").append( $('<span id="countAtnd"></span>') );
-            $("#qunit-fixture").append( $('<span id="countEventAtnd"></span>') );
             $("#qunit-fixture").append( $('<span id="countZusaar"></span>') );
             $("#qunit-fixture").append( $('<span id="countKokucheese"></span>') );
             $("#qunit-fixture").append( $('<span id="countPartake"></span>') );
@@ -194,7 +192,6 @@ $(document).ready(function(){
         expect(7);
 
         setUpEvent("atnd", 1);
-        setUpEvent("eventatnd", 2);
         setUpEvent("zusaar", 3);
         setUpEvent("kokucheese", 4);
         setUpEvent("partake", 5);
@@ -202,7 +199,6 @@ $(document).ready(function(){
         azusaar.main.dispTotal();
 
         assert.strictEqual($("#countAtnd").text(), "(1)");
-        assert.strictEqual($("#countEventAtnd").text(), "(2)");
         assert.strictEqual($("#countZusaar").text(), "(3)");
         assert.strictEqual($("#countKokucheese").text(), "(4)");
         assert.strictEqual($("#countPartake").text(), "(5)");
@@ -219,7 +215,6 @@ $(document).ready(function(){
             year: 2012,
             month: 5,
             isSearchAtnd: true,
-            isSearchEventAtnd: true,
             isSearchZusaar: true,
             isSearchKokucheese: true,
             isSearchPartake: true,
@@ -232,7 +227,6 @@ $(document).ready(function(){
         d.then(function(){
             start();
             assert.strictEqual($("#countAtnd").text(), "(51)");
-            assert.strictEqual($("#countEventAtnd").text(), "(1)");
             assert.strictEqual($("#countZusaar").text(), "(5)");
             assert.strictEqual($("#countKokucheese").text(), "(6)");
             assert.strictEqual($("#countPartake").text(), "(4)");
@@ -254,7 +248,6 @@ $(document).ready(function(){
             month: 5,
             day: 12,
             isSearchAtnd: true,
-            isSearchEventAtnd: true,
             isSearchZusaar: true,
             isSearchKokucheese: true,
             isSearchPartake: true,
@@ -267,7 +260,6 @@ $(document).ready(function(){
         d.then(function(){
             start();
             assert.strictEqual($("#countAtnd").text(), "(13)");
-            assert.strictEqual($("#countEventAtnd").text(), "(0)");
             assert.strictEqual($("#countZusaar").text(), "(0)");
             assert.strictEqual($("#countKokucheese").text(), "(1)");
             assert.strictEqual($("#countPartake").text(), "(1)");

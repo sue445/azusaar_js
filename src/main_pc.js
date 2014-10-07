@@ -94,7 +94,6 @@ azusaar.main = (function(){
     function dispTotal(){
         $("#total").text(totalCount);
         dispSiteCount("#countAtnd", "atnd");
-        dispSiteCount("#countEventAtnd", "eventatnd");
         dispSiteCount("#countZusaar", "zusaar");
         dispSiteCount("#countKokucheese", "kokucheese");
         dispSiteCount("#countPartake", "partake");
@@ -271,9 +270,6 @@ azusaar.main = (function(){
 
 azusaar.event.atnd.addCallback = function(params){
     azusaar.main.addEvent(params, "atnd");
-};
-azusaar.event.eventatnd.addCallback = function(params){
-    azusaar.main.addEvent(params, "eventatnd");
 };
 azusaar.event.zusaar.addCallback = function(params){
     azusaar.main.addEvent(params, "zusaar");

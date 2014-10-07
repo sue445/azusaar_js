@@ -165,18 +165,13 @@ azusaar.event.SearchEventBase.prototype = {
             }
             response = response || {};
 
-            if(response.hash){
-                // for. eventatnd
-                response = response.hash;
-            }
-
             if(response.results_returned < 1){
                 df.resolve();
                 return;
             }
 
             if(response.events && response.events.length > 0 && response.events[0] && response.events[0].event){
-                // for. eventatnd, atnd
+                // for. atnd
                 for(var i = 0; i < response.events.length; i++){
                     eventCallback(response.events[i].event);
                 }
@@ -284,13 +279,5 @@ azusaar.event.connpass = new azusaar.event.SearchEventBase({
     cache: false,
     format: "json",
     dataType: "jsonp",
-    canUseAllReturn: false
-});
-
-azusaar.event.eventatnd = new azusaar.event.SearchEventBase({
-    apiUrl:"http://api.atnd.org/eventatnd/event/",
-    icon:"eventatnd",
-    cache: false,
-    format: "jsonp",
     canUseAllReturn: false
 });

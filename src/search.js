@@ -14,7 +14,6 @@ azusaar.search = (function(){
     var month;
     var day;
     var isSearchAtnd;
-    var isSearchEventAtnd;
     var isSearchZusaar;
     var isSearchKokucheese;
     var isSearchPartake;
@@ -31,7 +30,6 @@ azusaar.search = (function(){
         month = params.month;
         day = params.day;
         isSearchAtnd = params.isSearchAtnd;
-        isSearchEventAtnd = params.isSearchEventAtnd;
         isSearchZusaar = params.isSearchZusaar;
         isSearchKokucheese = params.isSearchKokucheese;
         isSearchPartake = params.isSearchPartake;
@@ -44,7 +42,6 @@ azusaar.search = (function(){
         $("#day").text(day);
 
         $("#checkAtnd").check(isSearchAtnd);
-        $("#checkEventAtnd").check(isSearchEventAtnd);
         $("#checkZusaar").check(isSearchZusaar);
         $("#checkKokucheese").check(isSearchKokucheese);
         $("#checkPartake").check(isSearchPartake);
@@ -77,7 +74,6 @@ azusaar.search = (function(){
         params.month = params.month * 1;
         params.day = params.day * 1;
         params.isSearchAtnd = azusaar.util.isSearch(params.isSearchAtnd);
-        params.isSearchEventAtnd = azusaar.util.isSearch(params.isSearchEventAtnd);
         params.isSearchZusaar = azusaar.util.isSearch(params.isSearchZusaar);
         params.isSearchKokucheese = azusaar.util.isSearch(params.isSearchKokucheese);
         params.isSearchPartake = azusaar.util.isSearch(params.isSearchPartake);
@@ -105,14 +101,13 @@ azusaar.search = (function(){
         var q = $("#query").val();
 
         var at = this.checkValue("checkAtnd");
-        var ea = this.checkValue("checkEventAtnd");
         var zu = this.checkValue("checkZusaar");
         var ko = this.checkValue("checkKokucheese");
         var pa = this.checkValue("checkPartake");
         var co = this.checkValue("checkConnpass");
         var dk = this.checkValue("checkDoorkeeper");
 
-        var query = $.query.set("q", q).set("at", at).set("ea", ea).set("zu", zu).set("ko", ko).set("pa", pa).set("co", co).set("dk", dk);
+        var query = $.query.set("q", q).set("at", at).set("zu", zu).set("ko", ko).set("pa", pa).set("co", co).set("dk", dk);
         if(params.year && params.month){
             query = query.set("y", params.year).set("m", params.month);
         } else{
@@ -133,7 +128,6 @@ azusaar.search = (function(){
         };
         return $.when(
             isSearchAtnd ? azusaar.event.atnd.searchMonthly(params) : null,
-            isSearchEventAtnd ? azusaar.event.eventatnd.searchMonthly(params) : null,
             isSearchZusaar ? azusaar.event.zusaar.searchMonthly(params) : null,
             isSearchKokucheese ? azusaar.event.kokucheese.searchMonthly(params) : null,
             isSearchPartake ? azusaar.event.partake.searchMonthly(params) : null,
@@ -175,29 +169,11 @@ azusaar.search = (function(){
                         }
 
                         $.when(
-                            isSearchEventAtnd ? azusaar.event.eventatnd.searchEachDays(params) : null
+                            isSearchConnpass ? azusaar.event.connpass.searchEachDays(params) : null
                         ).done(function(){
-                                params.days = azusaar.main.getRemainingDays({year: year, month:month});
-                                if(!params.days){
-                                    df.resolve();
-                                    return;
-                                }
-
-                                $.when(
-                                    isSearchConnpass ? azusaar.event.connpass.searchEachDays(params) : null
-                                ).done(function(){
-                                        df.resolve();
-                                    });
+                                df.resolve();
                             });
-                    });
-
-//                $.when(
-//                    isSearchAtnd ? azusaar.event.atnd.searchEachDays(params) : null,
-//                    isSearchEventAtnd ? azusaar.event.eventatnd.searchEachDays(params) : null,
-//                    isSearchConnpass ? azusaar.event.connpass.searchEachDays(params) : null
-//                ).done(function(){
-//                        df.resolve();
-//                    });
+                   });
             });
 
         return df.promise();
@@ -212,7 +188,6 @@ azusaar.search = (function(){
         };
         return $.when(
             isSearchAtnd ? azusaar.event.atnd.searchDaily(params) : null,
-            isSearchEventAtnd ? azusaar.event.eventatnd.searchDaily(params) : null,
             isSearchZusaar ? azusaar.event.zusaar.searchDaily(params) : null,
             isSearchKokucheese ? azusaar.event.kokucheese.searchDaily(params) : null,
             isSearchPartake ? azusaar.event.partake.searchDaily(params) : null,
