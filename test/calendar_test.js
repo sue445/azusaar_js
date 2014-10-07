@@ -97,8 +97,8 @@ $(document).ready(function(){
     test("getHoliday", function() {
         expect(2);
         stop();
-        azusaar.calendar.getHoliday(2011, 10, function(info){
-            assert.strictEqual(info.day, 10);
+        azusaar.calendar.getHoliday(2014, 10, function(info){
+            assert.strictEqual(info.day, 13);
             assert.strictEqual(info.title, "体育の日");
             start();
         });

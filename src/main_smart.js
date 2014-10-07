@@ -212,9 +212,6 @@ azusaar.main = (function(){
 azusaar.event.atnd.addCallback = function(params){
     azusaar.main.addEvent(params, "atnd");
 };
-azusaar.event.eventatnd.addCallback = function(params){
-    azusaar.main.addEvent(params, "eventatnd");
-};
 azusaar.event.zusaar.addCallback = function(params){
     azusaar.main.addEvent(params, "zusaar");
 };
