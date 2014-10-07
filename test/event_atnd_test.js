@@ -43,11 +43,11 @@ $(document).ready(function(){
             actualStartedAt = azusaar.util.parseDate(params.event.started_at);
         };
 
-        var d = sut.searchDaily({year:2012, month:3, day: 1});
+        var d = sut.searchDaily({year:2014, month:9, day: 5});
         d.then(function(){
             start();
-            assert.strictEqual(actualEventCount, 13);
-            assert.ok(actualStartedAt.sameDay({year:2012, month: 3, day: 1}), "actual="+actualStartedAt);
+            assert.strictEqual(actualEventCount, 1);
+            assert.ok(actualStartedAt.sameDay({year:2014, month: 9, day: 5}), "actual="+actualStartedAt);
         });
     });
 
