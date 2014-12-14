@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/sue445/azusaar_js/tree/master.svg?style=svg)](https://circleci.com/gh/sue445/azusaar_js/tree/master)
+[![Circle CI](https://circleci.com/gh/sue445/azusaar_js/tree/gh-pages.svg?style=svg)](https://circleci.com/gh/sue445/azusaar_js/tree/gh-pages)
 
 # Files
 - product code
