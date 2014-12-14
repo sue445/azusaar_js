@@ -1,4 +1,6 @@
-# Files [![Build Status](https://travis-ci.org/sue445/azusaar_js.png)](https://travis-ci.org/sue445/azusaar_js)
+[![Circle CI](https://circleci.com/gh/sue445/azusaar_js/tree/master.svg?style=svg)](https://circleci.com/gh/sue445/azusaar_js/tree/master)
+
+# Files
 - product code
  - src/ : source script
  - lib/ : libraries for product code (ex. jquery)
