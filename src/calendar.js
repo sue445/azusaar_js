@@ -59,6 +59,13 @@ azusaar.calendar = (function(){
 
         // ja.japanese#holiday@group.v.calendar.google.com
         var calendar_id = "ja.japanese%23holiday%40group.v.calendar.google.com";
+        var next_month = month + 1;
+        var next_year  = year;
+
+        if(next_month > 12){
+            next_month = 1;
+            next_year += 1;
+        }
 
         $.ajax({
             url: "https://www.googleapis.com/calendar/v3/calendars/" + calendar_id +"/events",
@@ -69,7 +76,7 @@ azusaar.calendar = (function(){
             data: {
                 "key" : api_key,
                 "timeMin"    : year + "-" + padding(month)   + "-01T00:00:00Z",
-                "timeMax"    : year + "-" + padding(month+1) + "-01T00:00:00Z",
+                "timeMax"    : next_year + "-" + padding(next_month) + "-01T00:00:00Z",
                 "maxResults" : 30
             },
             dataType: "jsonp",
