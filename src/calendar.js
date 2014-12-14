@@ -55,29 +55,35 @@ azusaar.calendar = (function(){
     }
 
     function getHoliday(year, month, callback) {
+        var api_key = "AIzaSyCCfFm129G5CMtbkJoPTbmggg4USm_h2t0";
+
+        // ja.japanese#holiday@group.v.calendar.google.com
+        var calendar_id = "ja.japanese%23holiday%40group.v.calendar.google.com";
+
         $.ajax({
-            url: "http://www.google.com/calendar/feeds/japanese__ja@holiday.calendar.google.com/public/full-noattendees",
+            url: "https://www.googleapis.com/calendar/v3/calendars/" + calendar_id +"/events",
             async : true,
             type: "GET",
             timeout: 30000,
             cache : false,
             data: {
-                "alt" : "json-in-script",
-                "start-min" : year + "-" + padding(month) + "-01",
-                "start-max" : year + "-" + padding(month+1) + "-01"
+                "key" : api_key,
+                "timeMin"    : year + "-" + padding(month)   + "-01T00:00:00Z",
+                "timeMax"    : year + "-" + padding(month+1) + "-01T00:00:00Z",
+                "maxResults" : 30
             },
             dataType: "jsonp",
             jsonp : "callback",
             success : function(response, status){
                 if(status == "success"){
-                    $.each(response.feed.entry, function(i, value){
-                        var ymd = value.gd$when[0].startTime.split("T")[0].split("-");
+                    $.each(response.items, function(i, value){
+                        var ymd = value.start.date.split("T")[0].split("-");
                         var y = ymd[0];
                         var m = ymd[1] * 1;
                         var d = ymd[2] * 1;
                         if(y == year && m == month){
                             callback({
-                                title : value.title.$t,
+                                title : value.summary,
                                 day : d
                             });
                         }
