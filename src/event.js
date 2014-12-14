@@ -273,11 +273,19 @@ azusaar.event.partake_user = new azusaar.event.SearchEventBase({
     canUseAllReturn: false
 });
 
+//azusaar.event.connpass = new azusaar.event.SearchEventBase({
+//    apiUrl:"http://connpass.com/api/v1/event/",
+//    icon:"connpass",
+//    cache: false,
+//    format: "json",
+//    dataType: "jsonp",
+//    canUseAllReturn: false
+//});
+
 azusaar.event.connpass = new azusaar.event.SearchEventBase({
-    apiUrl:"http://connpass.com/api/v1/event/",
+    apiUrl:"/api/connpass",
     icon:"connpass",
-    cache: false,
+    cache: true,
     format: "json",
-    dataType: "jsonp",
-    canUseAllReturn: false
+    canUseAllReturn: true
 });
