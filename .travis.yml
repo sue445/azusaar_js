@@ -1,4 +1,0 @@
-script: phantomjs testlib/run_qunit.js test/alltests.html
-branches:
-  only:
-    - master

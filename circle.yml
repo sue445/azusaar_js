@@ -1,0 +1,4 @@
+# https://circleci.com/docs/config-sample
+test:
+  override:
+    - phantomjs testlib/run_qunit.js test/alltests.html
